@@ -1,29 +1,29 @@
-# Just Us — upgraded foundation
+# Just Us — upgraded build
 
-This package starts from your uploaded `Just-us--main` project and upgrades the UI into a mobile-first Just Us foundation.
+This is a single-file mobile-first private-chat prototype based on the uploaded Just Us files.
 
-## Included now
-- Magical first opening / notice flow
-- Private room-code UI
-- Mobile-first home screen
-- Chat UI with emoji tray
-- Moments/photo capture preview + captions
-- Voice/video call screens
-- Ludo/Carrom entry screens
-- Privacy/E2EE architecture explanation
-- Haptic feedback where supported
-- Best-effort screenshot/focus notification (not universal browser screenshot detection)
-- Original project preserved as `index.original.html`
+## What is wired
+- WhatsApp-style chat layout.
+- Profile photo upload + crop-style circular preview.
+- Realtime Firebase Firestore presence and messages.
+- Text, emoji and compressed photo messages.
+- Online / last-seen presence.
+- Voice/video call UI with WebRTC + Firestore signaling.
+- Ludo and Carrom playable two-person turn-taking prototypes.
+- Game invitation with Accept / Reject.
+- 2.5-second animated ancient notice scene.
+- Privacy page explaining what is and is not actually end-to-end encrypted.
 
-## Important
-The interface is **not yet a production backend**. Do not describe it as fully end-to-end encrypted until the client-side cryptography, authenticated key exchange, secure storage, signaling, access rules, and threat model have been implemented and tested.
+## Important security
+The Firebase web config is not a password. The app is NOT automatically true E2EE. Before using real sensitive data:
+1. Enable Firebase Authentication (anonymous or account-based).
+2. Replace test-mode Firestore rules with rules that only permit the two authorized participants.
+3. Move photo delivery to Firebase Storage with strict rules.
+4. Encrypt message/photo payloads on-device with authenticated key exchange.
+5. Add a TURN server for reliable calls across restrictive NATs.
+6. Test the security rules and threat model.
 
-## Next production wiring
-1. Firebase/Supabase/Cloudflare backend for pairing, presence and signaling.
-2. Client-side E2EE using Web Crypto and authenticated key exchange. Never use the room code itself as an encryption key.
-3. WebRTC with STUN/TURN for calls.
-4. Encrypted photo upload/storage.
-5. Server-validated synchronized Ludo and Carrom state.
-6. Android native companion app for the true home-screen photo widget. iOS widget support can be added separately.
-7. Push notifications and device registration.
-8. Security testing before real private data is used.
+## Run
+Upload `index.html` to GitHub Pages, Firebase Hosting, Netlify, etc. HTTPS is required for camera/microphone access.
+
+The existing Firebase project values from the supplied project were retained so the build can connect to the same project.
