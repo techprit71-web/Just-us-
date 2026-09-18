@@ -3,177 +3,131 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#075e54">
-<title>Just Us — Private</title>
+<meta name="theme-color" content="#0d1020">
+<meta name="description" content="Just Us — a private space for two.">
+<title>Just Us</title>
 <style>
-:root{--green:#075e54;--green2:#128c7e;--mint:#dcf8c6;--chatbg:#efeae2;--ink:#111b21;--muted:#667781;--white:#fff;--line:#e9edef;--blue:#53bdeb}
-*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#d9dbd5}
-button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-#app{height:100dvh;max-width:520px;margin:auto;background:var(--white);overflow:hidden;position:relative;box-shadow:0 0 40px #0002}
-.screen{height:100%;display:flex;flex-direction:column}.screen.hidden{display:none}
-.topbar{height:62px;background:var(--green);color:#fff;display:flex;align-items:center;padding:8px 10px;gap:10px;flex:none}
-.avatar{width:42px;height:42px;border-radius:50%;background:#dfe5e7;display:grid;place-items:center;overflow:hidden;font-weight:700;color:#557}.avatar img{width:100%;height:100%;object-fit:cover}
-.profile-btn{background:none;border:0;color:#fff;padding:0;display:flex;align-items:center;gap:10px;min-width:0}.who{text-align:left;min-width:0}.who b{display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.who small{display:block;font-size:12px;opacity:.85}
-.actions{margin-left:auto;display:flex;gap:4px}.actions button{background:none;border:0;color:#fff;width:42px;height:42px;border-radius:50%;font-size:20px}.actions button:active{background:#ffffff22}
-#messages{flex:1;overflow:auto;padding:14px 10px 18px;background-color:var(--chatbg);background-image:radial-gradient(#d6cec3 1px,transparent 1px);background-size:18px 18px}
-.msgrow{display:flex;margin:3px 0}.msgrow.mine{justify-content:flex-end}.bubble{max-width:78%;padding:7px 9px 5px;border-radius:8px;background:#fff;box-shadow:0 1px 1px #0002;word-break:break-word}.mine .bubble{background:var(--mint)}.bubble img{display:block;max-width:240px;width:100%;border-radius:6px;margin-bottom:3px}.meta{font-size:10px;color:#667781;text-align:right;margin-top:2px}.empty{text-align:center;color:#667781;background:#ffffffdd;border-radius:8px;padding:9px 12px;font-size:12px;margin:18px auto;width:max-content;max-width:90%}
-.composer{background:#f0f2f5;border-top:1px solid #ddd;display:flex;align-items:flex-end;gap:7px;padding:7px 8px calc(7px + env(safe-area-inset-bottom));flex:none}.round{border:0;background:#fff;border-radius:50%;width:42px;height:42px;flex:none}.composer textarea{flex:1;resize:none;max-height:100px;border:0;border-radius:20px;padding:11px 14px;outline:none;background:#fff}.send{background:var(--green2);color:#fff}
-.emoji{display:none;gap:8px;padding:7px 10px;background:#f0f2f5;overflow:auto}.emoji.show{display:flex}.emoji button{border:0;background:#fff;border-radius:10px;padding:6px 8px;font-size:19px}
-.sheet{position:absolute;inset:0;background:#0005;z-index:30;display:flex;align-items:flex-end}.sheet-card{width:100%;background:#fff;border-radius:18px 18px 0 0;padding:18px;max-height:88%;overflow:auto}.sheet-card h2{margin:0 0 14px;font-size:20px}.field{margin:10px 0}.field label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}.field input{width:100%;border:1px solid #d7dde0;border-radius:10px;padding:11px}.primary{width:100%;border:0;border-radius:10px;background:var(--green2);color:#fff;padding:12px;font-weight:700;margin-top:8px}.secondary{width:100%;border:1px solid #d7dde0;border-radius:10px;background:#fff;padding:11px;margin-top:8px}.crop-wrap{width:260px;height:260px;border-radius:50%;overflow:hidden;background:#eee;margin:12px auto;position:relative}.crop-wrap img{width:100%;height:100%;object-fit:cover}
-.home{background:#fff;overflow:auto}.home-head{background:var(--green);color:#fff;padding:24px 18px 28px;border-radius:0 0 22px 22px}.home-head h1{margin:0;font-size:28px}.home-head p{margin:5px 0 0;opacity:.82}.tiles{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{border:1px solid var(--line);background:#fff;border-radius:16px;padding:17px;text-align:left;box-shadow:0 2px 7px #0000000b}.tile .ico{font-size:26px}.tile b{display:block;margin:7px 0 3px}.tile small{color:var(--muted)}
-.modal{position:absolute;inset:0;background:#0008;z-index:50;display:grid;place-items:center;padding:18px}.modal-card{width:100%;max-width:480px;background:#fff;border-radius:18px;overflow:hidden}.modal-head{padding:13px 15px;background:var(--green);color:#fff;display:flex;align-items:center}.modal-head b{flex:1}.close{border:0;background:none;color:#fff;font-size:22px}.call-stage{background:#101818;aspect-ratio:9/12;position:relative;display:grid;place-items:center;color:#fff}.call-stage video{width:100%;height:100%;object-fit:cover}.remote{position:absolute;inset:0}.local{position:absolute;right:10px;top:10px;width:105px;height:145px;border-radius:10px;overflow:hidden;border:2px solid #fff}.call-controls{position:absolute;bottom:15px;left:0;right:0;display:flex;justify-content:center;gap:14px}.call-controls button{width:48px;height:48px;border:0;border-radius:50%;background:#ffffff22;color:#fff;font-size:20px}.call-controls .hang{background:#e5484d}
-.gameboard{background:#f7f2e8;padding:12px;display:grid;place-items:center}.ludo{width:min(92vw,390px);aspect-ratio:1;border:7px solid #222;background:#fff;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);position:relative}.ludo .homebox{position:absolute;width:40%;height:40%;display:grid;place-items:center;border:4px solid #222}.redbox{left:0;top:0;background:#ef6b6b}.greenbox{right:0;top:0;background:#6bcf8c}.yellowbox{left:0;bottom:0;background:#f3d35b}.bluebox{right:0;bottom:0;background:#63a9e8}.center{position:absolute;left:40%;top:40%;width:20%;height:20%;background:conic-gradient(#63a9e8 0 25%,#f3d35b 0 50%,#ef6b6b 0 75%,#6bcf8c 0);clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%)}.piece{position:absolute;width:7%;height:7%;border-radius:50%;border:2px solid #222;z-index:4;transition:.25s}.roll{display:flex;gap:8px;align-items:center;padding:10px}.roll button{border:0;border-radius:10px;padding:10px 15px;background:var(--green2);color:#fff;font-weight:700}
-.carrom{width:min(92vw,390px);aspect-ratio:1;background:#c99a63;border:13px solid #70431e;box-shadow:inset 0 0 0 3px #efd29d;position:relative}.pocket{position:absolute;width:12%;aspect-ratio:1;background:#111;border-radius:50%}.p1{left:-7%;top:-7%}.p2{right:-7%;top:-7%}.p3{left:-7%;bottom:-7%}.p4{right:-7%;bottom:-7%}.queen{position:absolute;left:45%;top:45%;width:10%;aspect-ratio:1;background:#d33;border-radius:50%}.coin{position:absolute;width:7%;aspect-ratio:1;border-radius:50%;background:#f7f1df;border:1px solid #222;transition:.35s}.black{background:#222}.striker{position:absolute;width:10%;aspect-ratio:1;border-radius:50%;background:#ddd;border:2px solid #555;bottom:9%;left:45%}
-.toast{position:absolute;left:12px;right:12px;top:68px;z-index:80;background:#202c33;color:#fff;border-radius:9px;padding:11px 13px;box-shadow:0 4px 18px #0004;animation:in .2s}.toast b{display:block}.toast small{opacity:.8}@keyframes in{from{transform:translateY(-10px);opacity:0}}
-.notice{padding:28px 20px;text-align:center}.notice h1{font-size:28px}.notice p{color:var(--muted);line-height:1.55}.notice .jesus{height:220px;margin:0 auto 10px}.notice svg{max-width:210px;height:220px}.blink{animation:blink 4s infinite}.read{animation:read 2.5s ease-in-out infinite}@keyframes blink{0%,46%,49%,100%{transform:scaleY(1)}47%,48%{transform:scaleY(.15)}}@keyframes read{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
-.setup{height:100%;display:grid;place-items:center;padding:20px;background:linear-gradient(145deg,#e8f5f2,#fff)}.setup-card{width:min(410px,100%);background:#fff;border-radius:22px;padding:22px;box-shadow:0 12px 45px #0002}.setup-card h1{text-align:center;margin:0 0 5px}.setup-card p{color:var(--muted);font-size:13px;text-align:center}.setup-avatar{margin:18px auto;width:88px;height:88px}.setup-avatar .avatar{width:88px;height:88px;font-size:30px}
-.statusbar{padding:7px 12px;background:#f0f2f5;color:var(--muted);font-size:12px;text-align:center}
-@media(min-width:700px){#app{border-left:1px solid #ccc;border-right:1px solid #ccc}}
+:root{--bg:#080a14;--panel:#121528;--panel2:#191d35;--text:#f7f4ff;--muted:#a7aac2;--pink:#ff7cae;--violet:#9b8cff;--line:rgba(255,255,255,.1);--good:#7ee2b8}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#29204a 0,#0b0d19 42%,#06070d 100%);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input{font:inherit}button{border:0;color:inherit;cursor:pointer}.hidden{display:none!important}
+.screen{min-height:100vh;display:grid;place-items:center;padding:22px}
+.card{width:min(680px,100%);background:rgba(18,21,40,.84);border:1px solid var(--line);border-radius:28px;padding:26px;box-shadow:0 24px 80px #0008;backdrop-filter:blur(18px)}
+.logo{font-family:Georgia,serif;font-size:44px;text-align:center;margin:4px 0 8px}.sub{text-align:center;color:var(--muted);line-height:1.6}
+.orb{width:90px;height:90px;margin:10px auto 22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#ff9ac0 16%,#9c8cff 48%,transparent 70%);filter:blur(.2px);box-shadow:0 0 60px #9b8cff66;animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px) scale(1.03)}} 
+.btn{width:100%;padding:15px 18px;border-radius:16px;background:linear-gradient(135deg,var(--pink),var(--violet));font-weight:750;margin-top:12px}
+.btn.secondary{background:var(--panel2);border:1px solid var(--line)}.tiny{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}
+input{width:100%;padding:15px;border-radius:15px;border:1px solid var(--line);background:#090b15;color:var(--text);outline:none}
+input:focus{border-color:#a894ff}.code{font-size:25px;letter-spacing:7px;text-align:center}
+.article{max-height:52vh;overflow:auto;color:#d9d9e8;line-height:1.7}.article h2{font-family:Georgia,serif;color:#fff}.article strong{color:#fff}
+.top{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:15px 16px;background:#080a14dd;backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.brand{font-family:Georgia,serif;font-size:25px}.status{font-size:12px;color:var(--good)}
+main{max-width:900px;margin:auto;padding:18px 16px 110px}.hero{padding:14px 2px 18px}.hero h1{font-family:Georgia,serif;font-size:34px;margin:0 0 5px}.hero p{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tile{background:linear-gradient(145deg,#171a30,#101322);border:1px solid var(--line);border-radius:22px;padding:17px;min-height:130px}.tile b{display:block;margin-bottom:7px}.tile span{color:var(--muted);font-size:13px;line-height:1.45}.icon{font-size:27px;margin-bottom:12px}
+.section{margin-top:18px}.section h2{font-size:16px;margin:0 0 10px}.panel{background:#101323;border:1px solid var(--line);border-radius:22px;padding:14px}
+.chat{height:48vh;min-height:300px;overflow:auto;display:flex;flex-direction:column;gap:8px}.bubble{max-width:80%;padding:11px 13px;border-radius:17px;background:#20243b;align-self:flex-start}.bubble.me{background:linear-gradient(135deg,#7e6de6,#b44f80);align-self:flex-end}.composer{display:flex;gap:8px;margin-top:10px}.composer input{flex:1}.emoji{display:flex;gap:6px;overflow:auto;padding:8px 0}.emoji button{background:#1a1e31;border-radius:12px;padding:7px 9px}
+.bottom{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:#080a14e8;border-top:1px solid var(--line);backdrop-filter:blur(18px);padding:10px 8px calc(10px + env(safe-area-inset-bottom))}.nav{display:flex;gap:5px;max-width:700px;width:100%}.nav button{flex:1;background:transparent;padding:9px 4px;border-radius:13px;color:var(--muted);font-size:12px}.nav button.active{background:#1c2036;color:#fff}
+.toast{position:fixed;left:15px;top:72px;z-index:20;background:#181b30;border:1px solid #ffffff20;padding:12px 15px;border-radius:15px;box-shadow:0 12px 35px #0009;animation:toast .35s ease}.toast strong{display:block}.toast small{color:var(--muted)}@keyframes toast{from{transform:translateX(-25px);opacity:0}to{transform:none;opacity:1}}
+.forest{position:absolute;inset:0;overflow:hidden;pointer-events:none}.tree{position:absolute;bottom:-40px;width:90px;height:180px;border-radius:45px 45px 10px 10px;background:#101526;opacity:.65}.tree:before{content:"";position:absolute;left:-55px;top:35px;width:200px;height:100px;border-radius:50%;background:#11172a}.t1{left:8%}.t2{right:6%;transform:scale(1.3)}.t3{left:45%;transform:scale(.7)}
+@media(min-width:720px){.grid{grid-template-columns:repeat(3,1fr)}main{padding-left:24px;padding-right:24px}}
 </style>
 </head>
 <body>
-<div id="app">
-<section id="setup" class="screen">
- <div class="setup">
-  <div class="setup-card">
-   <h1>Just Us ♡</h1><p>Private space for two — WhatsApp-style chat, calls and games.</p>
-   <div class="setup-avatar"><div class="avatar" id="setupAvatar">+</div></div>
-   <button class="secondary" id="choosePfp">Choose & crop profile photo</button>
-   <input id="pfpInput" type="file" accept="image/*" hidden>
-   <div class="field"><label>Your name</label><input id="nameInput" maxlength="24" placeholder="Your name"></div>
-   <div class="field"><label>Private room code</label><input id="codeInput" maxlength="20" placeholder="e.g. JUSTUS2026"></div>
-   <button class="primary" id="enterBtn">Enter private chat</button>
-   <p>Use the same room code on the other phone. The code is for pairing, not encryption.</p>
+<div id="toastRoot"></div>
+
+<section id="welcome" class="screen">
+  <div class="forest"><i class="tree t1"></i><i class="tree t2"></i><i class="tree t3"></i></div>
+  <div class="card" style="position:relative">
+    <div class="orb"></div>
+    <div class="logo">Just Us</div>
+    <p class="sub">A tiny private world for two.<br>Take a breath. This space is yours.</p>
+    <button class="btn" onclick="go('notice')">Enter our little world ✦</button>
+    <p class="tiny">First-time setup · works as a mobile web app</p>
   </div>
- </div>
 </section>
 
 <section id="notice" class="screen hidden">
- <div class="notice">
-  <div class="jesus">
-   <svg viewBox="0 0 220 220" aria-label="animated ancient notice">
-    <defs><linearGradient id="robe" x1="0" x2="1"><stop stop-color="#7d6aa8"/><stop offset="1" stop-color="#bca5cf"/></linearGradient></defs>
-    <ellipse cx="110" cy="205" rx="60" ry="10" fill="#0002"/>
-    <path d="M62 196Q70 125 86 96L110 82 134 96Q150 125 158 196Z" fill="url(#robe)"/>
-    <circle cx="110" cy="67" r="28" fill="#d9a77c"/>
-    <path d="M82 66Q86 30 111 34Q139 35 139 67Q126 51 111 52Q96 51 82 66Z" fill="#4d3228"/>
-    <path d="M96 68Q102 64 107 68M113 68Q118 64 124 68" stroke="#39251f" stroke-width="3" fill="none" class="blink"/>
-    <path d="M103 80Q110 85 118 80" stroke="#7b4038" stroke-width="2" fill="none"/>
-    <path d="M76 114L48 138 82 153" stroke="#d9a77c" stroke-width="14" stroke-linecap="round"/>
-    <path d="M144 114L172 139 138 154" stroke="#d9a77c" stroke-width="14" stroke-linecap="round"/>
-    <g class="read"><rect x="68" y="132" width="84" height="52" rx="4" fill="#e9d5ad" stroke="#6b4b2e" stroke-width="3"/><path d="M78 146h64M78 156h55M78 166h60" stroke="#7c6546" stroke-width="3"/></g>
-   </svg>
+  <div class="card">
+    <div class="logo" style="font-size:34px">A note from Just Us</div>
+    <div class="article">
+      <h2>Private by design</h2>
+      <p>Messages, moments, and calls should belong to the two people using them. This interface is prepared for a client-side encrypted architecture.</p>
+      <p><strong>Important:</strong> this starter does not pretend that a visual interface alone provides end-to-end encryption. Production E2EE must encrypt on the device before data is sent to the server, use authenticated key exchange, and keep the server from receiving plaintext.</p>
+      <p>The same principle applies to photos and other private content.</p>
+    </div>
+    <button class="btn" onclick="go('pair')">Continue →</button>
   </div>
-  <h1>A note before we enter</h1>
-  <p>Just Us is built around a simple idea: the conversation belongs to the two people inside it.</p>
-  <p><b>2.5 seconds.</b> He opens the ancient notice, reads it with a small eye movement and expression, then the app continues.</p>
-  <button class="primary" id="continueBtn">Continue →</button>
- </div>
 </section>
 
-<section id="home" class="screen hidden">
- <div class="home">
-  <div class="home-head"><h1>Our little world ♡</h1><p id="homeStatus">Connecting…</p></div>
-  <div class="tiles">
-   <button class="tile" id="openChat"><div class="ico">💬</div><b>Chat</b><small>Simple, clean WhatsApp-style conversation.</small></button>
-   <button class="tile" id="openMoments"><div class="ico">📷</div><b>Moments</b><small>Send photos with a preview.</small></button>
-   <button class="tile" id="openGames"><div class="ico">🎲</div><b>Games</b><small>Ludo & Carrom with invites.</small></button>
-   <button class="tile" id="openPrivacy"><div class="ico">🔐</div><b>Privacy</b><small>See the real security model.</small></button>
- </div>
- </div>
+<section id="pair" class="screen hidden">
+  <div class="card">
+    <div class="logo" style="font-size:35px">Just you two</div>
+    <p class="sub">Create a private room or enter the code shared by your person.</p>
+    <button class="btn" onclick="createRoom()">Create private room</button>
+    <div style="height:8px"></div>
+    <input id="joinCode" class="code" inputmode="numeric" maxlength="8" placeholder="ROOM CODE">
+    <button class="btn secondary" onclick="joinRoom()">Join with code</button>
+    <p id="pairStatus" class="tiny"></p>
+  </div>
 </section>
 
-<section id="chat" class="screen hidden">
- <div class="topbar">
-  <button class="profile-btn" id="chatPartnerBtn"><div class="avatar" id="partnerAvatar">?</div><div class="who"><b id="partnerName">Waiting…</b><small id="partnerStatus">Connecting</small></div></button>
-  <div class="actions"><button id="voiceBtn" title="Voice call">☎</button><button id="videoBtn" title="Video call">▣</button><button id="chatMore">⋮</button></div>
- </div>
- <div id="statusbar" class="statusbar hidden"></div>
- <div id="messages"><div class="empty">Messages are private to this room. Say hello 👋</div></div>
- <div id="emojiBar" class="emoji"><button>❤️</button><button>😂</button><button>🥹</button><button>😘</button><button>🫶</button><button>✨</button><button>😭</button><button>🔥</button></div>
- <div class="composer"><button class="round" id="emojiBtn">😊</button><button class="round" id="photoBtn">📎</button><input id="photoInput" type="file" accept="image/*" hidden><textarea id="msgInput" rows="1" placeholder="Message"></textarea><button class="round send" id="sendBtn">➤</button></div>
+<section id="app" class="hidden">
+<header class="top"><div class="brand">Just Us ♡</div><div class="status">● private space</div></header>
+<main>
+  <div id="home" class="page">
+    <div class="hero"><h1>Our little world</h1><p id="roomLabel">Pair two devices to begin.</p></div>
+    <div class="grid">
+      <button class="tile" onclick="showPage('chat')"><div class="icon">💬</div><b>Chat</b><span>Private conversation with emoji.</span></button>
+      <button class="tile" onclick="showPage('calls')"><div class="icon">📹</div><b>Voice & video</b><span>WebRTC-ready call space.</span></button>
+      <button class="tile" onclick="showPage('moments')"><div class="icon">📸</div><b>Moments</b><span>Send a little photo to the other phone.</span></button>
+      <button class="tile" onclick="showPage('games')"><div class="icon">🎲</div><b>Games</b><span>Ludo and Carrom room.</span></button>
+      <button class="tile" onclick="showPage('privacy')"><div class="icon">🔐</div><b>Privacy</b><span>Encryption architecture and device status.</span></button>
+      <button class="tile" onclick="installHint()"><div class="icon">📱</div><b>Home screen</b><span>Add Just Us to your phone.</span></button>
+    </div>
+  </div>
+
+  <div id="chat" class="page hidden">
+    <div class="hero"><h1>Chat</h1><p>Emoji tray + local demo. Backend hook ready.</p></div>
+    <div class="panel"><div id="messages" class="chat"></div>
+      <div class="emoji">
+        <button onclick="addEmoji('❤️')">❤️</button><button onclick="addEmoji('🥹')">🥹</button><button onclick="addEmoji('😘')">😘</button><button onclick="addEmoji('🫶')">🫶</button><button onclick="addEmoji('✨')">✨</button><button onclick="addEmoji('😂')">😂</button>
+      </div>
+      <div class="composer"><input id="msg" placeholder="Write something..."><button class="btn" style="width:auto;margin:0" onclick="sendMsg()">Send</button></div>
+    </div>
+  </div>
+
+  <div id="calls" class="page hidden"><div class="hero"><h1>Voice & video</h1><p>WebRTC call screen.</p></div><div class="panel"><div style="aspect-ratio:16/9;background:#080a12;border-radius:18px;display:grid;place-items:center;font-size:50px">📹</div><button class="btn" onclick="callNotice()">Start video call</button><button class="btn secondary" onclick="callNotice()">Start voice call</button><p class="tiny">Actual calls require signaling + STUN/TURN configuration.</p></div></div>
+
+  <div id="moments" class="page hidden"><div class="hero"><h1>Moments</h1><p>One photo can become the other person's little surprise.</p></div><div class="panel"><input id="photo" type="file" accept="image/*" capture="environment"><div id="preview" style="margin-top:12px"></div><button class="btn" onclick="momentNotice()">Send moment</button><div class="emoji"><button onclick="caption('❤️')">❤️</button><button onclick="caption('✨')">✨</button><button onclick="caption('🥰')">🥰</button><button onclick="caption('miss you')">miss you</button></div><p class="tiny">Production version will encrypt the image on-device before upload.</p></div></div>
+
+  <div id="games" class="page hidden"><div class="hero"><h1>Play together</h1><p>Two-player synchronized game room.</p></div><div class="grid"><button class="tile" onclick="gameNotice('Ludo')"><div class="icon">🎲</div><b>Ludo</b><span>Two-player board.</span></button><button class="tile" onclick="gameNotice('Carrom')"><div class="icon">🪵</div><b>Carrom</b><span>Two-player board.</span></button></div></div>
+
+  <div id="privacy" class="page hidden"><div class="hero"><h1>Privacy</h1><p>What needs to be wired before calling this production-secure.</p></div><div class="panel"><p>🔐 <b>Client-side E2EE:</b> Web Crypto / authenticated key exchange.</p><p>☁️ <b>Server:</b> ciphertext, signaling and presence only.</p><p>📹 <b>Calls:</b> WebRTC media encryption + signaling.</p><p>📸 <b>Moments:</b> encrypt before upload.</p><p>📱 <b>Widget:</b> native Android/iOS companion required for a true home-screen widget.</p></div></div>
+</main>
+<nav class="bottom"><div class="nav"><button class="active" onclick="showPage('home',this)">⌂<br>Home</button><button onclick="showPage('chat',this)">♡<br>Chat</button><button onclick="showPage('moments',this)">✦<br>Moments</button><button onclick="showPage('games',this)">🎲<br>Play</button></div></nav>
 </section>
 
-<section id="games" class="screen hidden">
- <div class="topbar"><button class="actions" id="gamesBack">‹</button><div class="who"><b>Play together</b><small id="gameStatus">Invite your person</small></div></div>
- <div class="tiles"><button class="tile" id="ludoTile"><div class="ico">🎲</div><b>Ludo</b><small>Two-player local-online board.</small></button><button class="tile" id="carromTile"><div class="ico">🪵</div><b>Carrom</b><small>Take turns and move pieces.</small></button></div>
-</section>
-
-<section id="game" class="screen hidden">
- <div class="topbar"><button class="actions" id="gameBack">‹</button><div class="who"><b id="gameTitle">Game</b><small id="turnLabel">Waiting…</small></div><div class="actions"><button id="gameInvite">♧</button></div></div>
- <div id="gameBody"></div>
-</section>
-
-<section id="privacy" class="screen hidden">
- <div class="topbar"><button class="actions" id="privacyBack">‹</button><div class="who"><b>Privacy</b><small>What is actually protected</small></div></div>
- <div style="padding:18px;overflow:auto"><h2>Private by design</h2><p>Pairing uses a room code. Messages are synced through Firebase. For true end-to-end encryption, the app still needs client-side encryption, authenticated key exchange and strict Firestore/Storage rules.</p><p><b>Calls:</b> WebRTC media is peer-to-peer when connectivity allows; signaling is exchanged through the room.</p><p><b>Photos:</b> This build compresses images before sending. Production privacy should encrypt photos before storage.</p><p><b>Important:</b> Firebase client configuration is not a secret. Security comes from authentication, rules and cryptography — never from hiding the config.</p></div>
-</section>
-
-<div id="sheet" class="sheet hidden"><div class="sheet-card" id="sheetCard"></div></div>
-<div id="callModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><b id="callTitle">Call</b><button class="close" id="closeCall">×</button></div><div class="call-stage"><video id="remoteVideo" class="remote" autoplay playsinline></video><video id="localVideo" class="local" autoplay muted playsinline></video><div id="callWaiting">Connecting…</div><div class="call-controls"><button id="muteCall">🎙</button><button id="camCall">▣</button><button class="hang" id="hangCall">☎</button></div></div></div></div>
-<div id="toastRoot"></div>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
-const FIREBASE_CONFIG={apiKey:"AIzaSyD4CrTUuCXEGuhTZZAbKGo9VM9t5f4kKp8",authDomain:"betweenus-4e7f4.firebaseapp.com",projectId:"betweenus-4e7f4",storageBucket:"betweenus-4e7f4.firebasestorage.app",messagingSenderId:"248525233003",appId:"1:248525233003:web:a4e9ed903e6a0a88f30a2e"};
-firebase.initializeApp(FIREBASE_CONFIG);const db=firebase.firestore();
-
-const $=id=>document.getElementById(id), state={
- id:localStorage.getItem("ju_id")||("u_"+crypto.randomUUID()),
- name:localStorage.getItem("ju_name")||"", photo:localStorage.getItem("ju_photo")||"",
- code:localStorage.getItem("ju_code")||"", partner:null, unsub:[], call:null, game:null
-};
-localStorage.setItem("ju_id",state.id);
-function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-function initials(n){return (n||"?").trim()[0]?.toUpperCase()||"?"}
-function avatar(el,name,photo){el.innerHTML=photo?`<img src="${photo}">`:initials(name)}
-function toast(title,text=""){let d=document.createElement("div");d.className="toast";d.innerHTML=`<b>${esc(title)}</b><small>${esc(text)}</small>`;$("toastRoot").appendChild(d);setTimeout(()=>d.remove(),3000)}
-function screen(id){document.querySelectorAll(".screen").forEach(x=>x.classList.add("hidden"));$(id).classList.remove("hidden")}
-function compress(file,max=1000,q=.62){return new Promise((res,rej)=>{let r=new FileReader();r.onload=e=>{let i=new Image();i.onload=()=>{let s=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);c.getContext("2d").drawImage(i,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",q))};i.onerror=rej;i.src=e.target.result};r.onerror=rej;r.readAsDataURL(file)})}
-function relative(ts){if(!ts?.toDate)return "offline";let s=Math.max(0,(Date.now()-ts.toDate().getTime())/1000);if(s<60)return"last seen just now";if(s<3600)return`last seen ${Math.floor(s/60)} min ago`;if(s<86400)return`last seen ${Math.floor(s/3600)} hr ago`;return`last seen ${Math.floor(s/86400)} day ago`}
-$("choosePfp").onclick=()=>$("pfpInput").click();
-$("pfpInput").onchange=async e=>{if(!e.target.files[0])return;state.photo=await compress(e.target.files[0],500,.8);avatar($("setupAvatar"),state.name,state.photo)}
-$("nameInput").value=state.name;$("codeInput").value=state.code;if(state.photo)avatar($("setupAvatar"),state.name,state.photo);
-$("enterBtn").onclick=async()=>{let n=$("nameInput").value.trim(),c=$("codeInput").value.trim();if(!n||!c)return toast("Missing details","Enter your name and room code.");state.name=n;state.code=c.toUpperCase();localStorage.setItem("ju_name",n);localStorage.setItem("ju_code",state.code);localStorage.setItem("ju_photo",state.photo);screen("notice");setTimeout(()=>{$("continueBtn").onclick=()=>startRoom()},2500)}
-async function startRoom(){screen("chat");$("homeStatus").textContent="Room "+state.code;$("partnerStatus").textContent="Waiting for your person…";let room=db.collection("rooms").doc(state.code);await room.set({updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});let me=room.collection("presence").doc(state.id);let online=()=>me.set({name:state.name,photo:state.photo,online:true,lastSeen:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});await online();document.addEventListener("visibilitychange",()=>online());window.addEventListener("beforeunload",()=>me.set({online:false,lastSeen:firebase.firestore.FieldValue.serverTimestamp()},{merge:true}));
-state.unsub.push(room.collection("presence").onSnapshot(s=>{let others=[];s.forEach(d=>{if(d.id!==state.id)others.push({id:d.id,...d.data()})});let p=others[0];if(p){state.partner=p;avatar($("partnerAvatar"),p.name,p.photo);$("partnerName").textContent=p.name||"Your person";$("partnerStatus").textContent=p.online?"online":relative(p.lastSeen);$("homeStatus").textContent=p.online?"Together now":"They are offline";}else{$("partnerName").textContent="Waiting…";$("partnerStatus").textContent="Waiting for your person…"}}));
-let first=true;state.unsub.push(room.collection("messages").orderBy("createdAt","asc").limitToLast(300).onSnapshot(s=>{if(first){$("messages").innerHTML="";first=false} s.docChanges().forEach(ch=>{if(ch.type==="added")renderMessage(ch.doc.data())});$("messages").scrollTop=$("messages").scrollHeight}));
-state.unsub.push(room.collection("calls").onSnapshot(s=>{s.docChanges().forEach(ch=>{if(ch.type==="added"){let d=ch.doc.data();if(d.to===state.id&&d.status==="ringing")incomingCall(ch.doc.id,d)}})}));
-state.unsub.push(room.collection("gameInvites").onSnapshot(s=>{s.docChanges().forEach(ch=>{if(ch.type==="added"){let d=ch.doc.data();if(d.to===state.id&&d.status==="pending")gameInvite(d,ch.doc.id)}})}));
+const $=id=>document.getElementById(id);
+function buzz(ms=15){try{navigator.vibrate?.(ms)}catch(e){}}
+function go(id){buzz(20);['welcome','notice','pair'].forEach(x=>$(x).classList.add('hidden'));$(id).classList.remove('hidden')}
+function showPage(id,btn){
+  buzz(12);document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));$(id).classList.remove('hidden');
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');
 }
-function renderMessage(d){let row=document.createElement("div");row.className="msgrow "+(d.sender===state.id?"mine":"");let b=document.createElement("div");b.className="bubble";if(d.type==="image"){let img=document.createElement("img");img.src=d.data;b.appendChild(img)}if(d.text){let p=document.createElement("div");p.textContent=d.text;b.appendChild(p)}let m=document.createElement("div");m.className="meta";m.textContent=(d.createdAt?.toDate?d.createdAt.toDate():new Date()).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});b.appendChild(m);row.appendChild(b);$("messages").appendChild(row)}
-async function sendText(){let i=$("msgInput"),t=i.value.trim();if(!t)return;await db.collection("rooms").doc(state.code).collection("messages").add({sender:state.id,type:"text",text:t,createdAt:firebase.firestore.FieldValue.serverTimestamp()});i.value="";i.style.height="auto"}
-$("sendBtn").onclick=sendText;$("msgInput").onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendText()}};$("msgInput").oninput=e=>{e.target.style.height="auto";e.target.style.height=Math.min(100,e.target.scrollHeight)+"px"};
-$("emojiBtn").onclick=()=>$("emojiBar").classList.toggle("show");document.querySelectorAll("#emojiBar button").forEach(b=>b.onclick=()=>{$("msgInput").value+=b.textContent;$("msgInput").focus()});
-$("photoBtn").onclick=()=>$("photoInput").click();$("photoInput").onchange=async e=>{let f=e.target.files[0];if(!f)return;toast("Sending photo","Compressing securely for transfer…");let data=await compress(f,900,.58);await db.collection("rooms").doc(state.code).collection("messages").add({sender:state.id,type:"image",data,createdAt:firebase.firestore.FieldValue.serverTimestamp()});e.target.value=""};
-
-$("openChat").onclick=()=>screen("chat");$("openMoments").onclick=()=>$("photoBtn").click();$("openGames").onclick=()=>screen("games");$("openPrivacy").onclick=()=>screen("privacy");
-$("gamesBack").onclick=()=>screen("home");$("privacyBack").onclick=()=>screen("home");$("gameBack").onclick=()=>screen("games");
-$("chatMore").onclick=()=>toast("Just Us","Online presence and last-seen are synced through this private room.");
-$("chatPartnerBtn").onclick=()=>state.partner&&toast(state.partner.name,state.partner.online?"online":relative(state.partner.lastSeen));
-
-async function inviteGame(type){if(!state.partner)return toast("Not connected","Your person needs to join first.");let ref=db.collection("rooms").doc(state.code).collection("gameInvites").doc();await ref.set({from:state.id,fromName:state.name,to:state.partner.id,type,status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp()});toast("Invitation sent",`Waiting for ${state.partner.name} to accept ${type}.`)}
-function gameInvite(d,id){let card=$("sheetCard");card.innerHTML=`<h2>🎮 ${esc(d.fromName)} invited you</h2><p>Play ${esc(d.type)} together?</p><button class="primary" id="acceptGame">Accept</button><button class="secondary" id="rejectGame">Reject</button>`;$("sheet").classList.remove("hidden");$("acceptGame").onclick=async()=>{await db.collection("rooms").doc(state.code).collection("gameInvites").doc(id).update({status:"accepted"});$("sheet").classList.add("hidden");openGame(d.type)};$("rejectGame").onclick=async()=>{await db.collection("rooms").doc(state.code).collection("gameInvites").doc(id).update({status:"rejected"});$("sheet").classList.add("hidden")}}
-$("ludoTile").onclick=()=>inviteGame("Ludo");$("carromTile").onclick=()=>inviteGame("Carrom");$("gameInvite").onclick=()=>state.game&&inviteGame(state.game);
-function openGame(type){state.game=type;screen("game");$("gameTitle").textContent=type;if(type==="Ludo")buildLudo();else buildCarrom();syncGame()}
-async function syncGame(){let ref=db.collection("rooms").doc(state.code).collection("game").doc(state.game.toLowerCase());state.unsub.push(ref.onSnapshot(d=>{let x=d.data();if(x){$("turnLabel").textContent=x.turn===state.id?"Your turn":`${state.partner?.name||"Their"} turn`;if(state.game==="Ludo"&&x.roll)paintLudo(x);if(state.game==="Carrom"&&x.moves)paintCarrom(x)}}))}
-function buildLudo(){let body=$("gameBody");body.innerHTML=`<div class="gameboard"><div class="ludo"><div class="homebox redbox">YOU</div><div class="homebox greenbox">THEM</div><div class="homebox yellowbox"></div><div class="homebox bluebox"></div><div class="center"></div><div class="piece" id="piece" style="left:47%;top:47%;background:#e85c5c"></div></div><div class="roll"><button id="rollBtn">Roll 🎲</button><span id="rollText">Roll to start.</span></div></div>`;$("rollBtn").onclick=rollLudo}
-async function rollLudo(){let ref=db.collection("rooms").doc(state.code).collection("game").doc("ludo");let d=(await ref.get()).data()||{turn:state.id,roll:0};if(d.turn!==state.id)return toast("Wait","It's not your turn.");let n=1+Math.floor(Math.random()*6);await ref.set({turn:state.partner?.id||state.id,roll:n,lastBy:state.id},{merge:true});$("rollText").textContent="You rolled "+n}
-function paintLudo(x){$("rollText").textContent=`Last roll: ${x.roll||0}`;let p=$("piece");if(p){let n=Math.min(6,x.roll||0);p.style.left=(47+n*4)+"%";p.style.top=(47+n*2)+"%"}}
-function buildCarrom(){let body=$("gameBody");body.innerHTML=`<div class="gameboard"><div class="carrom"><i class="pocket p1"></i><i class="pocket p2"></i><i class="pocket p3"></i><i class="pocket p4"></i><i class="queen"></i><i class="coin" style="left:25%;top:25%"></i><i class="coin black" style="left:70%;top:25%"></i><i class="coin" style="left:25%;top:70%"></i><i class="coin black" style="left:70%;top:70%"></i><i class="striker" id="striker"></i></div><div class="roll"><button id="shootBtn">Shoot</button><span id="shotText">Take your shot.</span></div></div>`;$("shootBtn").onclick=shootCarrom}
-async function shootCarrom(){let ref=db.collection("rooms").doc(state.code).collection("game").doc("carrom");let d=(await ref.get()).data()||{turn:state.id,moves:0};if(d.turn!==state.id)return toast("Wait","It's not your turn.");let moves=(d.moves||0)+1;await ref.set({turn:state.partner?.id||state.id,moves,lastBy:state.id},{merge:true});$("shotText").textContent="Shot "+moves+" — nice."}
-function paintCarrom(x){$("shotText").textContent=`Shots played: ${x.moves||0}`}
-
-let pc=null,localStream=null,callId=null;
-async function startCall(kind){if(!state.partner)return toast("Not connected","Wait for your person.");$("callModal").classList.remove("hidden");$("callTitle").textContent=kind==="video"?"Video call":"Voice call";$("callWaiting").textContent="Calling…";localStream=await navigator.mediaDevices.getUserMedia({audio:true,video:kind==="video"});$("localVideo").srcObject=localStream;if(kind!=="video")$("localVideo").classList.add("hidden");pc=new RTCPeerConnection({iceServers:[{urls:"stun:stun.l.google.com:19302"}]});localStream.getTracks().forEach(t=>pc.addTrack(t,localStream));pc.ontrack=e=>$("remoteVideo").srcObject=e.streams[0];pc.onicecandidate=e=>e.candidate&&db.collection("rooms").doc(state.code).collection("calls").doc(callId).collection("callerCandidates").add(e.candidate.toJSON());callId=crypto.randomUUID();let ref=db.collection("rooms").doc(state.code).collection("calls").doc(callId);pc.onicecandidate=e=>e.candidate&&ref.collection("callerCandidates").add(e.candidate.toJSON());let offer=await pc.createOffer();await pc.setLocalDescription(offer);await ref.set({from:state.id,to:state.partner.id,type:kind,status:"ringing",offer:{type:offer.type,sdp:offer.sdp},createdAt:firebase.firestore.FieldValue.serverTimestamp()});ref.onSnapshot(async s=>{let d=s.data();if(d?.answer&&!pc.currentRemoteDescription){await pc.setRemoteDescription(d.answer);$("callWaiting").textContent="Connected";}});ref.collection("calleeCandidates").onSnapshot(s=>s.docChanges().forEach(async c=>{if(c.type==="added")await pc.addIceCandidate(c.doc.data())}));}
-async function incomingCall(id,d){let card=$("sheetCard");card.innerHTML=`<h2>📞 ${esc(d.fromName||state.partner?.name||"Your person")} is calling</h2><p>${d.type==="video"?"Video":"Voice"} call</p><button class="primary" id="acceptCall">Accept</button><button class="secondary" id="rejectCall">Decline</button>`;$("sheet").classList.remove("hidden");$("acceptCall").onclick=()=>answerCall(id,d);$("rejectCall").onclick=async()=>{await db.collection("rooms").doc(state.code).collection("calls").doc(id).update({status:"rejected"});$("sheet").classList.add("hidden")}}
-async function answerCall(id,d){$("sheet").classList.add("hidden");$("callModal").classList.remove("hidden");$("callTitle").textContent=d.type==="video"?"Video call":"Voice call";localStream=await navigator.mediaDevices.getUserMedia({audio:true,video:d.type==="video"});$("localVideo").srcObject=localStream;if(d.type!=="video")$("localVideo").classList.add("hidden");pc=new RTCPeerConnection({iceServers:[{urls:"stun:stun.l.google.com:19302"}]});localStream.getTracks().forEach(t=>pc.addTrack(t));pc.ontrack=e=>$("remoteVideo").srcObject=e.streams[0];let ref=db.collection("rooms").doc(state.code).collection("calls").doc(id);pc.onicecandidate=e=>e.candidate&&ref.collection("calleeCandidates").add(e.candidate.toJSON());await pc.setRemoteDescription(d.offer);let ans=await pc.createAnswer();await pc.setLocalDescription(ans);await ref.update({answer:{type:ans.type,sdp:ans.sdp},status:"accepted"});ref.collection("callerCandidates").onSnapshot(s=>s.docChanges().forEach(async c=>{if(c.type==="added")await pc.addIceCandidate(c.doc.data())}));}
-function endCall(){if(localStream)localStream.getTracks().forEach(t=>t.stop());if(pc)pc.close();pc=null;localStream=null;$("remoteVideo").srcObject=null;$("localVideo").srcObject=null;$("callModal").classList.add("hidden")}
-$("voiceBtn").onclick=()=>startCall("voice");$("videoBtn").onclick=()=>startCall("video");$("hangCall").onclick=endCall;$("closeCall").onclick=endCall;$("muteCall").onclick=()=>localStream?.getAudioTracks().forEach(t=>t.enabled=!t.enabled);$("camCall").onclick=()=>localStream?.getVideoTracks().forEach(t=>t.enabled=!t.enabled);
-$("sheet").onclick=e=>{if(e.target===$("sheet"))$("sheet").classList.add("hidden")};
-window.addEventListener("online",()=>toast("Back online","Connection restored."));window.addEventListener("offline",()=>toast("Offline","Messages may wait until the connection returns."));
+function toast(title,text){buzz(20);const d=document.createElement('div');d.className='toast';d.innerHTML='<strong>'+title+'</strong><small>'+text+'</small>';$('toastRoot').appendChild(d);setTimeout(()=>d.remove(),3300)}
+function createRoom(){const code=String(Math.floor(100000+Math.random()*900000));$('joinCode').value=code;$('pairStatus').textContent='Share this code with your person. Real pairing backend is the next step.';buzz(35)}
+function joinRoom(){const c=$('joinCode').value.trim();if(c.length<4){toast('Almost there','Enter the private room code.');return}enterApp(c)}
+function enterApp(c){['pair','notice','welcome'].forEach(x=>$(x).classList.add('hidden'));$('app').classList.remove('hidden');$('roomLabel').textContent='Room '+c+' · ready for two';toast('Just Us is ready','This device joined the room.')}
+function addEmoji(e){$('msg').value+=e;$('msg').focus();buzz(10)}
+function sendMsg(){const i=$('msg'),t=i.value.trim();if(!t)return;const b=document.createElement('div');b.className='bubble me';b.textContent=t;$('messages').appendChild(b);i.value='';$('messages').scrollTop=$('messages').scrollHeight;buzz(15)}
+function caption(x){toast('Moment caption',x)}
+$('photo').addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;const u=URL.createObjectURL(f);$('preview').innerHTML='<img src="'+u+'" style="max-width:100%;max-height:280px;border-radius:18px;display:block">';buzz(25)})
+function momentNotice(){toast('Moment prepared','Connect the encrypted storage/backend to deliver it to the other phone.')}
+function callNotice(){toast('Call screen ready','Connect signaling + STUN/TURN to make the call live.')}
+function gameNotice(g){toast(g+' room','Build synchronized game state on the backend for two players.')}
+function installHint(){toast('Home screen','Use your browser menu → Add to Home screen. A true widget needs the companion app.')}
+window.addEventListener('blur',()=>{setTimeout(()=>{if(document.visibilityState==='visible')toast('A tiny surprise?','Just Us noticed the page lost focus. Screenshot detection is not universally available on websites.')},250)})
 </script>
 </body>
 </html>
